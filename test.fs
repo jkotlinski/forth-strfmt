@@ -25,7 +25,7 @@ T{ 'r' 'a' 'h' 'c' s" %c%c%c%c" buf strfmt s" char" compare -> 0 }T
 \ test %%
 T{ s" %%" buf strfmt s" %" compare -> 0 }T
 
-max-uint ffffffffffffffff = value 64-bit
+max-uint ffffffffffffffff = constant 64-bit
 
 \ test %n
 T{ 0 s" %n" buf strfmt s" 0" compare -> 0 }T
