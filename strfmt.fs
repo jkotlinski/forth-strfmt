@@ -5,7 +5,7 @@ variable charbuf
 
 : pad-left ( dst c-addr u -- dst c-addr u )
 left-justify @ if exit then
-dup min-field-width @ < if \ insert space
+dup min-field-width @ < if
 min-field-width @ over - >r
 rot dup r@ pad-char @ fill r> + -rot then ;
 
