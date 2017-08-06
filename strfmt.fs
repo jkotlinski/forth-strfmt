@@ -11,26 +11,24 @@ swap 0 <# #s #> move-and-inc-dst ;
 : strfmt-s ( c-addr u dst -- dst )
 -rot move-and-inc-dst ;
 
-variable src
-
-: parse-cmdspec
-1 src +! src @ c@ case
+: parse-cmdspec ( dst src -- dst src )
+1+ dup >r c@ case
 '%' of '%' over c! 1+ endof
 'c' of tuck c! 1+ endof
 'n' of strfmt-n endof
 'u' of strfmt-u endof
 's' of strfmt-s endof
-'d' of 1 src +! src @ c@ case
+'d' of r> 1+ dup >r c@ case
     'n' of strfmt-dn endof
     'u' of strfmt-du endof
-endcase endof endcase ;
+endcase endof endcase r> ;
 
 \ Prints into buffer c-addr2 using the format string at c-addr1 u.
 \ caddr2 u3 is the resulting string.
 : strfmt ( c-addr1 u1 c-addr2 -- caddr2 u3 )
-dup >r -rot over + >r src !
-begin src @ r@ < while
-src @ c@ '%' = if parse-cmdspec
-else src @ c@ over c! 1+ then
-1 src +! repeat
-rdrop r> tuck - ;
+dup >r -rot over + >r \ dst src
+begin dup r@ < while
+dup c@ '%' = if parse-cmdspec
+else 2dup c@ swap c! swap 1+ swap then
+1+ repeat
+drop rdrop r> tuck - ;
