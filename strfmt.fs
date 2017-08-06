@@ -12,7 +12,6 @@ swap 0 <# #s #> move-and-inc-dst ;
 -rot move-and-inc-dst ;
 
 variable src
-0 value srcend
 
 : parse-cmdspec
 1 src +! src @ c@ case
@@ -29,9 +28,9 @@ endcase endof endcase ;
 \ Prints into buffer c-addr2 using the format string at c-addr1 u.
 \ caddr2 u3 is the resulting string.
 : strfmt ( c-addr1 u1 c-addr2 -- caddr2 u3 )
-dup >r -rot over + to srcend src !
-begin src @ srcend < while
+dup >r -rot over + >r src !
+begin src @ r@ < while
 src @ c@ '%' = if parse-cmdspec
 else src @ c@ over c! 1+ then
 1 src +! repeat
-r> tuck - ;
+rdrop r> tuck - ;
