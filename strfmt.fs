@@ -1,18 +1,37 @@
-: move-and-inc-dst ( dst c-addr u -- dst )
->r over r@ move r> + ;
+variable min-field-width
+
+: right-justify ( dst c-addr u -- dst c-addr u )
+dup min-field-width @ < if \ insert space
+min-field-width @ over - >r
+rot dup r@ bl fill r> + -rot then ;
+
+: left-justify ;
+
+: move-content ( dst c-addr u -- dst )
+right-justify
+>r over r@ move r> +
+left-justify ;
+
 : strfmt-n ( n dst -- dst )
-swap dup s>d dabs <# #s rot sign #> move-and-inc-dst ;
+swap dup s>d dabs <# #s rot sign #> move-content ;
 : strfmt-u ( u dst -- dst )
-swap 0 <# #s #> move-and-inc-dst ;
+swap 0 <# #s #> move-content ;
 : strfmt-dn ( d dst -- dst )
--rot tuck dabs <# #s rot sign #> move-and-inc-dst ;
+-rot tuck dabs <# #s rot sign #> move-content ;
 : strfmt-du ( d dst -- dst )
--rot <# #s #> move-and-inc-dst ;
+-rot <# #s #> move-content ;
 : strfmt-s ( c-addr u dst -- dst )
--rot move-and-inc-dst ;
+-rot move-content ;
+
+: parse-min-field-width ( src srcend -- src srcend )
+base @ >r decimal
+over - >r >r 0 0 r> r>
+>number rot drop rot min-field-width !
+over + r> base ! ;
 
 : parse-cmdspec ( dst src srcend -- dst src srcend )
->r 1+ dup >r c@ case
+swap 1+ swap parse-min-field-width
+>r dup >r c@ case
 '%' of '%' over c! 1+ endof
 'c' of tuck c! 1+ endof
 'n' of strfmt-n endof
