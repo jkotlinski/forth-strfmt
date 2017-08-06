@@ -31,7 +31,7 @@ swap 0 <# #s #> add-field ;
 over c@ '-' = dup if rot 1+ -rot then left-justify !
 over c@ '0' = if swap 1+ swap '0' else bl then pad-char !
 base @ >r decimal
-over - >r >r 0 0 r> r>
+over - 0 -rot 0 -rot
 >number rot drop rot min-field-width !
 over + r> base ! ;
 
