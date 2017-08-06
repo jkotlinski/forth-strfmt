@@ -31,4 +31,3 @@ Examples:
     00010 ok
     > s" spaced" s" %-10s out" pad strfmt type
     spaced     out ok
-    00010 ok
