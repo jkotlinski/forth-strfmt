@@ -60,6 +60,8 @@ T{ s" bar" s" foo" s" %s%s" buf strfmt s" foobar" compare -> 0 }T
 
 \ min field width
 T{ 0 s" %2n" buf strfmt s"  0" compare -> 0 }T
+T{ 'a' s" %2c" buf strfmt s"  a" compare -> 0 }T
+T{ s" %2%" buf strfmt s"  %" compare -> 0 }T
 
 \ Random tests
 T{ 10 s" Joe" s" %s has a %n%% discount!" buf strfmt s" Joe has a 10% discount!" compare -> 0 }T
