@@ -1,7 +1,7 @@
-strfmt ( c-addr1 u1 c-addr2 -- caddr2 u3 )
+strfmt ( n*x c-addr1 u1 c-addr2 -- c-addr2 u3 )
 
 Prints into buffer c-addr2 using the format string at c-addr1 u.
-caddr2 u3 is the resulting string.
+caddr-2 u3 is the resulting string.
 
 The format string contains ordinary characters (except %), which are
 copied unchanged to the destination buffer, and conversion specifications.
