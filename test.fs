@@ -4,10 +4,10 @@ require strfmt.fs
 testing strfmt wordset
 hex
 
-0 INVERT            CONSTANT MAX-UINT
-0 INVERT 1 RSHIFT       CONSTANT MAX-INT
+0 INVERT                    CONSTANT MAX-UINT
+0 INVERT 1 RSHIFT           CONSTANT MAX-INT
 0 INVERT 1 RSHIFT INVERT    CONSTANT MIN-INT
-0 INVERT 1 RSHIFT       CONSTANT MID-UINT
+0 INVERT 1 RSHIFT           CONSTANT MID-UINT
 0 INVERT 1 RSHIFT INVERT    CONSTANT MID-UINT+1
 
 \ empty string
@@ -60,7 +60,6 @@ T{ 0 s" %2n" pad strfmt s"  0" compare -> 0 }T
 T{ 'a' s" %2c" pad strfmt s"  a" compare -> 0 }T
 T{ s" %2%" pad strfmt s"  %" compare -> 0 }T
 T{ s" bar" s" %6s" pad strfmt s"    bar" compare -> 0 }T
-1 s" %02n" pad strfmt cr type cr
 T{ 1 s" %02n" pad strfmt s" 01" compare -> 0 }T
 T{ 'a' s" %02c" pad strfmt s" 0a" compare -> 0 }T
 T{ s" %02%" pad strfmt s" 0%" compare -> 0 }T
