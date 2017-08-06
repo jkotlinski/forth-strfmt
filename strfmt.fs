@@ -16,9 +16,7 @@ dup r@ bl fill r@ + then rdrop
 else drop then ;
 
 : add-field ( dst c-addr u -- dst )
-pad-left
->r over r@ move r> \ dst u
-pad-right ;
+pad-left >r over r@ move r> pad-right ;
 
 : strfmt-n ( n dst -- dst )
 swap dup s>d dabs <# #s rot sign #> add-field ;
