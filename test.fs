@@ -59,4 +59,4 @@ T{ 0 0 s" %du" buf strfmt s" 0" compare -> 0 }T
 T{ s" bar" s" foo" s" %s%s" buf strfmt s" foobar" compare -> 0 }T
 
 \ Random tests
-10 s" Joe" s" %s has a %n%% discount!" buf strfmt type
+T{ 10 s" Joe" s" %s has a %n%% discount!" buf strfmt s" Joe has a 10% discount!" compare -> 0 }T
