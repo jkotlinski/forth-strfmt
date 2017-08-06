@@ -1,4 +1,4 @@
-require ttester.fs
+require tester.fs
 require strfmt.fs
 
 testing strfmt wordset
