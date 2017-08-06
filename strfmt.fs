@@ -1,16 +1,22 @@
 variable min-field-width
+variable left-justify
 
-: right-justify ( dst c-addr u -- dst c-addr u )
+: pad-left ( dst c-addr u -- dst c-addr u )
+left-justify @ if exit then
 dup min-field-width @ < if \ insert space
 min-field-width @ over - >r
 rot dup r@ bl fill r> + -rot then ;
 
-: left-justify ;
+: pad-right ( dst u -- dst )
+tuck + swap left-justify @ if
+min-field-width @ swap - >r r@ 0> if
+dup r@ bl fill r@ + then rdrop
+else drop then ;
 
 : add-field ( dst c-addr u -- dst )
-right-justify
->r over r@ move r> +
-left-justify ;
+pad-left
+>r over r@ move r> \ dst u
+pad-right ;
 
 : strfmt-n ( n dst -- dst )
 swap dup s>d dabs <# #s rot sign #> add-field ;
@@ -22,6 +28,7 @@ swap 0 <# #s #> add-field ;
 -rot <# #s #> add-field ;
 
 : parse-min-field-width ( src srcend -- src srcend )
+over c@ '-' = dup if rot 1+ -rot then left-justify !
 base @ >r decimal
 over - >r >r 0 0 r> r>
 >number rot drop rot min-field-width !
