@@ -8,8 +8,9 @@ copied unchanged to the destination buffer, and conversion specifications.
 Conversion specifications have the following format:
 
  * Introductory % character
- * An optional - that specifies left justify.
- * An optional decimal integer value that specifies minimum field width.
+ * An optional - that specifies left justify
+ * An optional 0 that left-pads using 0 instead of space
+ * An optional decimal integer value that specifies minimum field width
  * A conversion format specifier
 
 The following format specifiers are available:

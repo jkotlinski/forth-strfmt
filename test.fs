@@ -60,12 +60,21 @@ T{ 0 s" %2n" pad strfmt s"  0" compare -> 0 }T
 T{ 'a' s" %2c" pad strfmt s"  a" compare -> 0 }T
 T{ s" %2%" pad strfmt s"  %" compare -> 0 }T
 T{ s" bar" s" %6s" pad strfmt s"    bar" compare -> 0 }T
+1 s" %02n" pad strfmt cr type cr
+T{ 1 s" %02n" pad strfmt s" 01" compare -> 0 }T
+T{ 'a' s" %02c" pad strfmt s" 0a" compare -> 0 }T
+T{ s" %02%" pad strfmt s" 0%" compare -> 0 }T
+T{ s" bar" s" %06s" pad strfmt s" 000bar" compare -> 0 }T
 
 \ left justify
 T{ 0 s" %-2n" pad strfmt s" 0 " compare -> 0 }T
 T{ 'a' s" %-2c" pad strfmt s" a " compare -> 0 }T
 T{ s" %-2%" pad strfmt s" % " compare -> 0 }T
 T{ s" bar" s" %-6s" pad strfmt s" bar   " compare -> 0 }T
+T{ 1 s" %-02n" pad strfmt s" 1 " compare -> 0 }T
+T{ 'a' s" %-02c" pad strfmt s" a " compare -> 0 }T
+T{ s" %-02%" pad strfmt s" % " compare -> 0 }T
+T{ s" bar" s" %-06s" pad strfmt s" bar   " compare -> 0 }T
 
 \ Random tests
 T{ 10 s" Joe" s" %s has a %n%% discount!" pad strfmt s" Joe has a 10% discount!" compare -> 0 }T
