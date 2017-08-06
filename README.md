@@ -23,7 +23,12 @@ The following format specifiers are available:
     du - double-cell unsigned number
     s - string (c-addr u)
 
-Example:
+Examples:
 
     > 10 s" Joe" s" %s has a %n%% discount!" pad strfmt type
     Joe has a 10% discount! ok
+    > 10 s" %05n" pad strfmt type
+    00010 ok
+    > s" spaced" s" %-10s out" pad strfmt type
+    spaced     out ok
+    00010 ok
