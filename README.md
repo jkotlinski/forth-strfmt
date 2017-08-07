@@ -1,6 +1,10 @@
-strfmt ( n*x c-addr1 u1 c-addr2 -- c-addr2 u3 )
+printf ( n*x c-addr u -- )
 
-Prints into buffer c-addr2 using the format string at c-addr1 u.
+Prints n*x using the format string at c-addr u.
+
+sprintf ( n*x c-addr1 u1 c-addr2 -- c-addr2 u3 )
+
+Prints n*x into buffer c-addr2 using the format string at c-addr1 u.
 caddr-2 u3 is the resulting string.
 
 The format string contains ordinary characters (except %), which are
@@ -25,9 +29,9 @@ The following format specifiers are available:
 
 Examples:
 
-    > 10 s" Joe" s" %s has a %n%% discount!" pad strfmt type
+    > 10 s" Joe" s" %s has a %n%% discount!" printf
     Joe has a 10% discount! ok
-    > 10 s" %05n" pad strfmt type
+    > 10 s" %05n" printf
     00010 ok
-    > s" spaced" s" %-10s out" pad strfmt type
+    > s" spaced" s" %-10s out" printf
     spaced     out ok
