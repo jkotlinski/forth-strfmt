@@ -48,7 +48,7 @@ swap 1+ swap parse-min-field-width
     'u' of sprintf-du endof
 endcase endof endcase r> r> ;
 
-\ Prints into buffer c-addr2 using the format string at c-addr1 u.
+\ Prints n*x into buffer c-addr2 using the format string at c-addr1 u.
 \ caddr2 u3 is the resulting string.
 : sprintf ( n*x c-addr1 u1 c-addr2 -- caddr2 u3 )
 dup >r -rot over + \ dst src srcend
@@ -58,5 +58,6 @@ else -rot 2dup c@ swap c! -rot 1+ -rot then
 swap 1+ swap repeat
 2drop r> tuck - ;
 
+\ Prints n*x using the format string at c-addr u.
 : printf ( n*x c-addr u -- )
 pad sprintf type ;
