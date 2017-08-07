@@ -1,14 +1,14 @@
 variable min-field-width
-variable left-justify
-variable pad-char
-variable charbuf
+create left-justify 1 allot
+create pad-char 1 allot
+create charbuf 1 allot
 
 : pad-left ( dst c-addr u -- dst c-addr u )
-left-justify @ if exit then dup min-field-width @ < if
-min-field-width @ over - >r rot dup r@ pad-char @ fill r> + -rot then ;
+left-justify c@ if exit then dup min-field-width @ < if
+min-field-width @ over - >r rot dup r@ pad-char c@ fill r> + -rot then ;
 
 : pad-right ( dst u -- dst )
-tuck + swap left-justify @ if min-field-width @ swap - >r r@ 0> if
+tuck + swap left-justify c@ if min-field-width @ swap - >r r@ 0> if
 dup r@ bl fill r@ + then rdrop else drop then ;
 
 : add-field ( dst c-addr u -- dst ) pad-left >r over r@ move r> pad-right ;
@@ -18,8 +18,8 @@ dup r@ bl fill r@ + then rdrop else drop then ;
 : sprintf-du ( du dst -- dst ) -rot <# #s #> add-field ;
 
 : parse-min-field-width ( src srcend -- src srcend )
-over c@ '-' = dup if rot 1+ -rot then left-justify !
-over c@ '0' = if swap 1+ swap '0' else bl then pad-char !
+over c@ '-' = dup if rot 1+ -rot then left-justify c!
+over c@ '0' = if swap 1+ swap '0' else bl then pad-char c!
 base @ >r decimal over - 0 -rot 0 -rot >number
 rot drop rot min-field-width ! over + r> base ! ;
 
