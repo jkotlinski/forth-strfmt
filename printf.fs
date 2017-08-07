@@ -6,17 +6,10 @@ create charbuf 1 allot
 : pad-left ( dst c-addr u -- dst c-addr u )
 left-justify c@ if exit then dup min-field-width @ < if
 min-field-width @ over - >r rot dup r@ pad-char c@ fill r> + -rot then ;
-
 : pad-right ( dst u -- dst )
 tuck + swap left-justify c@ if min-field-width @ swap - >r r@ 0> if
 dup r@ bl fill r@ + then rdrop else drop then ;
-
 : add-field ( dst c-addr u -- dst ) pad-left >r over r@ move r> pad-right ;
-: sprintf-n ( n dst -- dst ) swap dup s>d dabs <# #s rot sign #> add-field ;
-: sprintf-u ( u dst -- dst ) swap 0 <# #s #> add-field ;
-: sprintf-dn ( d dst -- dst ) -rot tuck dabs <# #s rot sign #> add-field ;
-: sprintf-du ( du dst -- dst ) -rot <# #s #> add-field ;
-
 : parse-min-field-width ( src srcend -- src srcend )
 over c@ '-' = dup if rot 1+ -rot then left-justify c!
 over c@ '0' = if swap 1+ swap '0' else bl then pad-char c!
@@ -27,12 +20,12 @@ rot drop rot min-field-width ! over + r> base ! ;
 swap 1+ swap parse-min-field-width >r dup >r c@ case
 '%' of s" %" add-field endof
 'c' of swap charbuf c! charbuf 1 add-field endof
-'n' of sprintf-n endof
-'u' of sprintf-u endof
+'n' of swap dup s>d dabs <# #s rot sign #> add-field endof
+'u' of swap 0 <# #s #> add-field endof
 's' of -rot add-field endof
 'd' of r> 1+ dup >r c@ case
-    'n' of sprintf-dn endof
-    'u' of sprintf-du endof
+    'n' of -rot tuck dabs <# #s rot sign #> add-field endof
+    'u' of -rot <# #s #> add-field endof
 endcase endof endcase r> r> ;
 
 \ Prints n*x into buffer c-addr2 using the format string at c-addr1 u.
