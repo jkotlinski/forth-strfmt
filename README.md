@@ -29,9 +29,9 @@ The following format specifiers are available:
 
 Examples:
 
-    > 10 s" Joe" s" %s has a %n%% discount!" printf
+    10 s" Joe" s" %s has a %n%% discount!" printf
     Joe has a 10% discount! ok
-    > 10 s" %05n" printf
+    10 s" %05n" printf
     00010 ok
-    > s" spaced" s" %-10s out" printf
+    s" spaced" s" %-10s out" printf
     spaced     out ok
